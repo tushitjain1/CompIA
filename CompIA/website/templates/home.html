@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Exam Timetable Generator{% endblock %}
+{% block content %} 
+<br/>
+<h1 class="display-3 text-center">Welcome to the Exam Timetable Generator - {{user.name}}</h1>
+<form method="post" id="myForm">
+    <table class="table table-hover table-bordered table-sm align.middle"> 
+        <thead>
+            <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Subjects</th>
+                <th scope="col">Option</th>
+                <th scope="col">Paper 1 Duration</th>
+                <th scope="col">Paper 2 Duration</th>
+                <th scope="col">Paper 3 Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(0,subjects|length) %}
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{subjects[i]}}</td>
+                <td>{{option[i]}}</td>
+                <td>{{durations[i*3]}}</td>
+                <td>{{durations[i*3+1]}}</td>
+                <td>{{durations[i*3+2]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>If any paper has to be excluded, please add 0 for Duration</p>
+    <input type="text" name="newSubject" id="newSubject" placeholder="Name of the new Subject" class="im-line">
+    <input type="text" name="newSubjectOption" id="newSubjectOption" placeholder="Option Block Number" class="im-line">
+    <input type="text" name="newSubject1" id="newSubject1" placeholder="Duration of Paper 1" class="im-line">
+    <input type="text" name="newSubject2" id="newSubject2" placeholder="Duration of Paper 2" class="im-line">
+    <input type="text" name="newSubject3" id="newSubject3" placeholder="Duration of Paper 3" class="im-line">
+    <button type="submit" value="newSub" class="in-line light">Add</button>
+    <p></p>
+    <p>Delete a Subject</p>
+    <input type="text" name="delSubject" id="delSubject" placeholder="Index of Subject to Delete">
+    <button type="submit" name="delSub" class="in-line light">Delete</button>
+    <p></p>
+    <p>Change Subject Data</p>
+    <input type="text" name="subID" id="subID" placeholder="Index of Subejct to be changed">
+    <input type="text" name="subName" id="subName" class="in-line" placeholder="New name if any">
+    <input type="text" name="sub1" id="sub1" class="in-line" placeholder="Paper 1 duration">
+    <input type="text" name="sub2" id="sub2" class="in-line" placeholder="Paper 2 duration">
+    <input type="text" name="sub3" id="sub3" class="in-line" placeholder="Paper 3 duration">
+    <button type="submit" name="change" class="in-line light">Change</button>
+    <p></p>
+    <p>Number of Days for the Exams to take place in:</p>
+    <input type="text" name="numDays" id="numDays" placeholder="Number of Days">
+    <button type="submit" name="addDays" class="in-line light">Change</button>
+    <p></p>
+    <p></p>
+    <table class="table table-hover table-bordered table-sm align.middle">
+        <thead>
+            <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Start</th>
+                <th scope="col">End</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(0,times|length) %}
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{times[i].start}}</td>
+                <td>{{times[i].end}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p></p>
+    <p></p>
+    <p>Delete Slot</p>
+    <input type="text" name="delSlot" id="delSlot" placeholder="Index">
+    <button type="submit" name="delSlotButton" class="in-line light">Delete</button>
+    <p></p>
+    <p></p>
+    <p>Add Slot</p>
+    <input type="text" name="startTime" id="addSlot" placeholder="Start Time">
+    <input type="text" name="endTime" id="addSlot" placeholder="End Time">
+    <button type="submit" name="addSlotButton" class="in-line light">Add</button>
+</form>
+<p></p>
+<p></p>
+<form action="/calculate/" method="post" style ='float: left; padding: 5px;'>
+    <button name="calculateBtn" type="submit" class="btn btn-primary in-line">Calculate</button>
+</form>
+<form action="/load/" method="post" style ='float: left; padding: 5px;'>
+    <button name="loadBtn" type="submit" class="btn btn-primary">Load Saved Timetable</button>
+</form>
+<p></p>
+<p></p>
+{% endblock	%} 
+
