@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} Generated Timetable {% endblock %}
+{% block content %} 
+<p></p>
+<p></p>
+<p></p>
+{% if sol == True %}
+<table class="table table-hover table-bordered table-sm align.middle"> 
+  <thead>
+    <tr>
+      <th scope="col">Times</th>
+      {% for i in range(days) %}
+        <th scope="col">Day {{i+1}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for x in range(times|length) %}
+      <tr>
+        <td>{{times[x].start}}:00 - {{times[x].end}}:00</td>
+        {% for y in range(days) %}
+          <td>
+            {% for z in output %}
+              {% if z[1] == y+1 and z[2] == times[x].start %}
+                {{z[0]}} Paper {{z[4]}}
+              {% endif %}
+            {% endfor %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p></p>
+<p></p>
+  <form action="/load/" method="post">
+    <button type="submit" name="save" class="btn-primary">Save</button>
+  </form>
+{% else %}
+  <body>
+    <pre>
+ ___   ___      ________      ___   ___     
+|\  \ |\  \    |\   __  \    |\  \ |\  \    
+\ \  \\_\  \   \ \  \|\  \   \ \  \\_\  \   
+ \ \______  \   \ \  \\\  \   \ \______  \  
+  \|_____|\  \   \ \  \\\  \   \|_____|\  \ 
+         \ \__\   \ \_______\         \ \__\
+          \|__|    \|_______|          \|__|                     
+
+    </pre>
+  </body>
+{% endif %}
+{% endblock	%} 
